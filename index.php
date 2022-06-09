@@ -12,7 +12,7 @@ require __DIR__.'/vendor/autoload.php';
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/js/mains.js" />
+    <script src="assets/js/mains.js" > </script>
     <title>Jadwalin</title>
 </head>
 

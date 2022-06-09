@@ -20,7 +20,7 @@ try {
 		$_SESSION['idTokenString'] = $idTokenString;
 		
 		$_SESSION['status'] = "Login Successfully";
-		header("Location: dash.php");
+		header ("Location: dash/index.php");
 		exit();
 } catch (InvalidToken $e) {
     echo 'The token is invalid: '.$e->getMessage();

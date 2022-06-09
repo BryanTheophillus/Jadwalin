@@ -1,2 +1,2 @@
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file vendor/bin/google-cloud-batch","time":"2022-05-26T07:05:47Z"}
-{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file vendor/bin/jp.php","time":"2022-05-26T07:05:47Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file vendor/bin/google-cloud-batch","time":"2022-06-09T02:30:21Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file vendor/bin/jp.php","time":"2022-06-09T02:30:21Z"}
