@@ -1,7 +1,5 @@
 <?php
 
-//insert.php
-
 $connect = new PDO('mysql:host=localhost;dbname=testing', 'root', '');
 
 if(isset($_POST["title"]))

@@ -56,14 +56,45 @@ if(isset($_SESSION['status'])) {
                 <div class="mb-4">
                   <h3>Sign In</h3>
                 </div>
-                <form action="lcode.php" method="post">
-                  <div class="form-group first">
+                <?php
+                  require('dbcon.php');
+        
+                  if (isset($_REQUEST['username'])) {
+                      $username = stripslashes($_REQUEST['username']);
+                      $username = mysqli_real_escape_string($con, $username);
+                      $email    = stripslashes($_REQUEST['email']);
+                      $email    = mysqli_real_escape_string($con, $email);
+                      $password = stripslashes($_REQUEST['password']);
+                      $password = mysqli_real_escape_string($con, $password);
+                      $create_datetime = date("Y-m-d H:i:s");
+                      $query    = "INSERT into `users` (username, password, email, create_datetime)
+                                  VALUES ('$username', '" . md5($password) . "', '$email', '$create_datetime')";
+                      $result   = mysqli_query($con, $query);
+                      if ($result) {
+                          echo "<div class='form'>
+                                <h3>You are registered successfully.</h3><br/>
+                                <p class='link'>Click here to <a href='dash/index.php'>Login</a></p>
+                                </div>";
+                      } else {
+                          echo "<div class='form'>
+                                <h3>Required fields are missing.</h3><br/>
+                                <p class='link'>Click here to <a href='SignUp.php'>registration</a> again.</p>
+                                </div>";
+                      }
+                  } else {
+              ?>
+                <form class="form" method="post" name="login">
+                  <div class="form-group first ">
                     <label for="username">Email</label>
-                    <input type="text" class="form-control" name="inputEmail" />
+                    <input type="text" class="form-control" name="email" />
+                  </div>
+                  <div class="form-group last">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" />
                   </div>
                   <div class="form-group last mb-4">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" name="inputPassword" />
+                    <input type="password" class="form-control" name="password" />
                   </div>
 
                   <input
@@ -74,6 +105,7 @@ if(isset($_SESSION['status'])) {
                   />
                   </div>
                 </form>
+                <?php } ?>
               </div>
             </div>
           </div>

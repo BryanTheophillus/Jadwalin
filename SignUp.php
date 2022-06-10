@@ -51,58 +51,54 @@ if(isset($_SESSION['status'])) {
           <div class="col-md-6">
             <img src="assets/image/img1.png" alt="Image" class="img-fluid" />
           </div>
+          <?php
+            require('dbcon.php');
+            session_start();
+            if (isset($_POST['username'])) {
+                $username = stripslashes($_REQUEST['username']);  
+                $username = mysqli_real_escape_string($con, $username);
+                $password = stripslashes($_REQUEST['password']);
+                $password = mysqli_real_escape_string($con, $password);
+                $query    = "SELECT * FROM `users` WHERE username='$username'
+                            AND password='" . md5($password) . "'";
+                $result = mysqli_query($con, $query) or die(mysql_error());
+                $rows = mysqli_num_rows($result);
+                if ($rows == 1) {
+                    $_SESSION['username'] = $username;
+                    header("Location: dash/index.php");
+                } else {
+                    echo "<div class='form'>
+                          <h3>Incorrect Username/password.</h3><br/>
+                          <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
+                          </div>";
+                }
+            } else {
+        ?>
           <div class="col-md-6 contents">
             <div class="row justify-content-center">
               <div class="col-md-8">
                 <div class="mb-4">
                   <h3>Sign Up</h3>
                 </div>
-                <form action="code.php" method="post">
+                <form class="form" name ="SignUp" method="post">
                   <div class="form-group first">
-                    <label for="username">Email</label>
-                    <input type="text" class="form-control" name="inputEmail" />
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" />
                   </div>
 
                   <div class="form-group last">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" name="inputPassword" />
+                    <input type="password" class="form-control" name="password" />
                   </div>
-
-                  <div class="form-group last mb-4">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="inputcpassword" />
-                  </div>
-									<?php
-										if(!empty($_POST["password"]) && ($_POST["password"] == $_POST["cpassword"])) {
-										    $password = test_input($_POST["inputpassword"]);
-										    $cpassword = test_input($_POST["inputcpassword"]);
-										    if (strlen($_POST["password"]) <= '8') {
-										        $passwordErr = "Your Password Must Contain At Least 8 Characters!";
-										    }
-										}
-										elseif(!empty($_POST["password"])) {
-										    $cpasswordErr = "Please Check You've Entered Or Confirmed Your Password!";
-										} else {
-										     $passwordErr = "Please enter password   ";
-										}
-										?>
                   <input
                     type="submit"
                     value="Register"
                     name="signup"
                     class="btn btn-block btn-primary"
                   />
-
-<!--                   <span class="d-block text-left my-4 text-muted">
-                    Or Register With
-                  </span>
-
-                  <div class="social-login">
-                    <a href="#" class="google">
-                      <span class="icon-google mr-3"></span>
-                    </a> -->
                   </div>
                 </form>
+                <?php } ?>
               </div>
             </div>
           </div>

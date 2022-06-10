@@ -1,11 +1,8 @@
 <?php
+$con = mysqli_connect("localhost","root","","testing");
 
-require __DIR__.'/vendor/autoload.php';
-use Kreait\Firebase\Factory;
-use Kreait\Firebase\Auth;
-$factory = (new Factory)->withServiceAccount('Db.json')
-->withDatabaseUri('https://sistem-enginering-default-rtdb.asia-southeast1.firebasedatabase.app/');;
+if (mysqli_connect_errno()){
+	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
 
-$database = $factory->createDatabase();
-$auth = $factory->createAuth();
 ?>

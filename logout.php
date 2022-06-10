@@ -1,9 +1,8 @@
 <?php
-session_start();
-unset($_SESSION['verified_user_id']);
-unset($_SESSION['idTokenString']);
 
-$_SESSION['status'] = "You Have Been Log Out";
-header("Location: SignIn.php");
-exit();
+session_start();
+session_destroy();
+
+header('Location: ../index.html');
+
 ?>
