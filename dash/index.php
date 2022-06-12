@@ -115,22 +115,29 @@ include("../auth.php");
     </nav>
   <br />
   <div class="container-fluid">
-    <div class="row" id="row_awal">
-      <div class="col-12" id="col_1">
-        <div class="float-left" id="logos">
+    <div class="row mb-4" id="row_awal">
+      <div class="col-12 mb-4" id="col_1">
+        <div class="float-left" id="logos" style="margin-left:5%;">
           Jadwalin - Calendar
         </div>
-        <div class="float-right">
+        <div class="float-right" style="margin-right:5%;">
           <button type="button" class="btn btn-primary" id="but1">
-            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal"
+            <a href="" class="btn btn-default btn-rounded " data-toggle="modal"
               data-target="#modaladd">Add</a>
           </button>
         </div>
       </div>
       <div class="col-12" id="col_2">
-        <div id="calendar"></div>
+        <center>
+            <div id="calendar" style="width:80%; height :80%;"></div>
+        </center>
       </div>
     </div>
+  </div>
+  <div class=container-fluid>
+    <center>
+        <h5 style="font-size:10pt;">Copyright by Jadwalin</h5>
+    </center>
   </div>
   <form action="insert.php" method="POST">
     <div class="modal fade" id="modaladd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
