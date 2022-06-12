@@ -3,7 +3,6 @@
 <?php
 
 include("../auth.php");
-// include("reminder.php");
 ?>
 
 
@@ -19,7 +18,9 @@ include("../auth.php");
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
   <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet'>
   <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
-    <script src="easyNotify.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href ="../assets/css/dash.css">
   <script>
@@ -38,31 +39,11 @@ include("../auth.php");
     windowResize: function(arg) {
         alert('The calendar has adjusted to a window resize. Current view: ' + arg.view.type);
     },
-    select: function(start, end, allDay)
-    {
-     var title = prompt("Enter Event Title");
-     var start = prompt("Enter Start Date (Year-Month-Day Hour:Minute:Second)");
-     var end = prompt("Enter End Date (Year-Month-Day Hour:Minute:Second)");
-     var color = prompt("Enter Color");
-     if(title)
-     {
-      $.ajax({
-       url:"insert.php",
-       type:"POST",
-       data:{title:title, start:start, end:end, color:color},
-       success:function()
-       {
-        calendar.fullCalendar('refetchEvents');
-        alert("Added Successfully");
-       }
-      })
-     }
-    },
     editable:true,
     eventResize:function(event)
     {
-     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var start = prompt("Enter New Start Time Year-Month-Day Hour:Minute:Second");
+     var end = prompt("Enter New End Time Year-Month-Day Hour:Minute:Second");
      var title = event.title;
      var id = event.id;
      $.ajax({
@@ -78,8 +59,8 @@ include("../auth.php");
 
     eventDrop:function(event)
     {
-     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var start = prompt("Enter New Start Time Year-Month-Day Hour:Minute:Second");
+     var end = prompt("Enter New End Time Year-Month-Day Hour:Minute:Second");
      var title = event.title;
      var id = event.id;
      $.ajax({
@@ -133,9 +114,72 @@ include("../auth.php");
         </div>
     </nav>
   <br />
-  <div class="container">
-   <div id="calendar"></div>
+  <div class="container-fluid">
+    <div class="row" id="row_awal">
+      <div class="col-12" id="col_1">
+        <div class="float-left" id="logos">
+          Jadwalin - Calendar
+        </div>
+        <div class="float-right">
+          <button type="button" class="btn btn-primary" id="but1">
+            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal"
+              data-target="#modaladd">Add</a>
+          </button>
+        </div>
+      </div>
+      <div class="col-12" id="col_2">
+        <div id="calendar"></div>
+      </div>
+    </div>
   </div>
+  <form action="insert.php" method="POST">
+    <div class="modal fade" id="modaladd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Add Event</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <div class="md-form mb-3">
+              <label data-error="wrong" data-success="right" for="form34">Event Name</label><br>
+              <i class="fas fa-user prefix grey-text"></i>
+              <input type="text" name="title" id="title" placeholder="Event">
+              
+            </div>
+
+            <div class="md-form mb-3">
+              <label data-error="wrong" data-success="right" for="form29">Start Date</label>
+              <i class="fas fa-clock prefix grey-text"></i>
+              <input type="datetime-local" class="form-control" name="start" id="start" placeholder="start">
+            </div>
+
+            <div class="md-form mb-3">
+              <label data-error="wrong" data-success="right" for="form32">End Date</label>
+              <i class="fas fa-clock prefix grey-text"></i>
+              <input type="datetime-local" class="form-control" name="end" id="end" placeholder="end">
+              
+            </div>
+
+            <div class="md-form">
+              <label data-error="wrong" data-success="right" for="form8">Color</label>
+              <i class="fas fa-paint-brush prefix grey-text"></i>
+              <input name="color" class="form-control" id="color" placeholder="color">
+              
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
  </body>
 </html>
 

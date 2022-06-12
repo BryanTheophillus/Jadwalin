@@ -18,6 +18,8 @@ if(isset($_POST["title"]))
    ':color' => $_POST['color']
   )
  );
+ header('Location: index.php');
+
 }
 
 
