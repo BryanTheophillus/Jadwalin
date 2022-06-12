@@ -1,9 +1,10 @@
 
 
-<!-- <?php
+<?php
 
-// include("../auth.php");
-?> -->
+include("../auth.php");
+// include("reminder.php");
+?>
 
 
 <!DOCTYPE html>
@@ -18,6 +19,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
   <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet'>
   <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
+    <script src="easyNotify.js"></script>
+
   <link rel="stylesheet" href ="../assets/css/dash.css">
   <script>
    
@@ -38,11 +41,11 @@
     select: function(start, end, allDay)
     {
      var title = prompt("Enter Event Title");
+     var start = prompt("Enter Start Date (Year-Month-Day Hour:Minute:Second)");
+     var end = prompt("Enter End Date (Year-Month-Day Hour:Minute:Second)");
      var color = prompt("Enter Color");
      if(title)
      {
-      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
       $.ajax({
        url:"insert.php",
        type:"POST",

@@ -53,23 +53,27 @@ if(isset($_SESSION['status'])) {
           </div>
           <?php
             require('dbcon.php');
-            session_start();
-            if (isset($_POST['username'])) {
-                $username = stripslashes($_REQUEST['username']);  
+        
+            if (isset($_REQUEST['username'])) {
+                $username = stripslashes($_REQUEST['username']);
                 $username = mysqli_real_escape_string($con, $username);
+                $email    = stripslashes($_REQUEST['email']);
+                $email    = mysqli_real_escape_string($con, $email);
                 $password = stripslashes($_REQUEST['password']);
                 $password = mysqli_real_escape_string($con, $password);
-                $query    = "SELECT * FROM `users` WHERE username='$username'
-                            AND password='" . md5($password) . "'";
-                $result = mysqli_query($con, $query) or die(mysql_error());
-                $rows = mysqli_num_rows($result);
-                if ($rows == 1) {
-                    $_SESSION['username'] = $username;
-                    header("Location: dash/index.php");
+                $create_datetime = date("Y-m-d H:i:s");
+                $query    = "INSERT into `users` (username, password, email, create_datetime)
+                            VALUES ('$username', '" . md5($password) . "', '$email', '$create_datetime')";
+                $result   = mysqli_query($con, $query);
+                if ($result) {
+                    echo "<div class='form'>
+                          <h3>You are registered successfully.</h3><br/>
+                          <p class='link'>Click here to <a href='SignIn.php'>Login</a></p>
+                          </div>";
                 } else {
                     echo "<div class='form'>
-                          <h3>Incorrect Username/password.</h3><br/>
-                          <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
+                          <h3>Required fields are missing.</h3><br/>
+                          <p class='link'>Click here to <a href='SignUp.php'>registration</a> again.</p>
                           </div>";
                 }
             } else {
@@ -81,7 +85,11 @@ if(isset($_SESSION['status'])) {
                   <h3>Sign Up</h3>
                 </div>
                 <form class="form" name ="SignUp" method="post">
-                  <div class="form-group first">
+                <div class="form-group first ">
+                    <label for="Email">Email</label>
+                    <input type="text" class="form-control" name="email" />
+                  </div>
+                  <div class="form-group second">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" name="username" />
                   </div>
