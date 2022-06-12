@@ -1,12 +1,18 @@
 <?php
+    session_start();
+    if(!isset($_SESSION["username"])) {
+        header("Location: index.php");
+        exit();
+    }
+?>
 
-//load.php
+<?php
 
 $connect = new PDO('mysql:host=localhost;dbname=testing', 'root', '');
 
 $data = array();
 
-$query = "SELECT * FROM events ORDER BY id";
+$query = "SELECT * FROM events WHERE user='".$_SESSION["username"]."' ORDER BY id";
 
 $statement = $connect->prepare($query);
 
@@ -18,6 +24,7 @@ foreach($result as $row)
 {
  $data[] = array(
   'id'   => $row["id"],
+  'user' => $row["user"],
   'title'   => $row["title"],
   'start'   => $row["start_event"],
   'end'   => $row["end_event"],
